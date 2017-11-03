@@ -151,7 +151,6 @@ GAPPS_PRODUCT_PACKAGES += \
     LeanbackIme \
     VideosPano \
     Music2Pano \
-    CanvasPackageInstaller \
     PlayGames \
     Katniss \
     AtvWidget \
@@ -159,12 +158,25 @@ GAPPS_PRODUCT_PACKAGES += \
     SetupWraith \
     AtvRemoteService
 
-ifneq ($(filter $(call get-allowed-api-levels),24),)
+ifneq ($(filter 24,$(call get-allowed-api-levels)),)
 GAPPS_PRODUCT_PACKAGES += \
-    GooglePrintRecommendationService \
     GoogleExtServices \
     GoogleExtShared \
-    LandscapeWallpaper
+    LandscapeWallpaper \
+    CanvasPackageInstaller \
+    LeanbackIme
+endif
+
+ifneq ($(filter 26,$(call get-allowed-api-levels)),)
+GAPPS_PRODUCT_PACKAGES += \
+    LatinIMEGoogleTvPrebuilt \
+    TVLauncher \
+    TVRecommendations \
+    TvTutorials
+GAPPS_EXCLUDED_PACKAGES := \
+    LandscapeWallpaper \
+    CanvasPackageInstaller \
+    LeanbackIme
 endif
 
 endif # end tvstock
