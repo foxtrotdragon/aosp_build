@@ -2,6 +2,7 @@ include vendor/opengapps/build/core/definitions.mk
 include vendor/opengapps/build/config.mk
 include vendor/opengapps/build/opengapps-files.mk
 
+ifneq ($(filter pico,$(TARGET_GAPPS_VARIANT)),) # require at least pico
 DEVICE_PACKAGE_OVERLAYS += \
     $(GAPPS_DEVICE_FILES_PATH)/overlay/pico
 
@@ -130,69 +131,6 @@ endif # end mini
 endif # end micro
 endif # end nano
 
-ifneq ($(filter tvstock,$(TARGET_GAPPS_VARIANT)),)
-
-GAPPS_PRODUCT_PACKAGES += \
-    BugReportSender \
-    ConfigUpdater \
-    NoTouchAuthDelegate \
-    PrebuiltGmsCorePano \
-    Tubesky \
-    Backdrop \
-    AndroidMediaShell \
-    GlobalKeyInterceptor \
-    TV \
-    Overscan \
-    RemoteControlService \
-    SecondScreenSetup \
-    SecondScreenSetupAuthBridge \
-    talkbackLeanback \
-    LeanbackLauncher \
-    LeanbackIme \
-    VideosPano \
-    Music2Pano \
-    PlayGamesLeanback \
-    Katniss \
-    AtvWidget \
-    YouTubeLeanback \
-    SetupWraith \
-    AtvRemoteService
-
-ifneq ($(filter 24,$(call get-allowed-api-levels)),)
-GAPPS_PRODUCT_PACKAGES += \
-    GoogleExtServices \
-    GoogleExtShared \
-    LandscapeWallpaper \
-    CanvasPackageInstaller \
-    LeanbackIme
-endif
-
-ifneq ($(filter 26,$(call get-allowed-api-levels)),)
-GAPPS_PRODUCT_PACKAGES += \
-    LatinIMEGoogleTvPrebuilt \
-    TVLauncher \
-    TVRecommendations \
-    TvTutorials \
-    AndroidPlatformServicesTV
-
-GAPPS_EXCLUDED_PACKAGES := \
-    LandscapeWallpaper \
-    LeanbackIme \
-    LeanbackLauncher \
-    CanvasPackageInstaller \
-    AtvWidget
-endif
-
-endif # end tvstock
-
-# This needs to be at the end of standard files, but before the GAPPS_FORCE_* options,
-# since those also affect DEVICE_PACKAGE_OVERLAYS. We don't want to exclude a package
-# that also has an overlay, since that will make us use the overlay but not have the
-# package. This can cause issues.
-PRODUCT_PACKAGES += $(filter-out $(GAPPS_EXCLUDED_PACKAGES),$(GAPPS_PRODUCT_PACKAGES))
-
-ifneq ($(filter pico,$(TARGET_GAPPS_VARIANT)),) # Not on tvstock
-
 ifeq ($(GAPPS_FORCE_WEBVIEW_OVERRIDES),true)
 # starting with nougat, use a different overlay
 ifneq ($(filter 24,$(call get-allowed-api-levels)),)
@@ -253,4 +191,59 @@ PRODUCT_PACKAGES += \
     Wallpapers
 endif
 
-endif # Not on tvstock
+endif # end pico
+
+ifneq ($(filter tvstock,$(TARGET_GAPPS_VARIANT)),) # does not contain any other variant
+
+GAPPS_PRODUCT_PACKAGES += \
+    WebViewGoogle \
+    GoogleContactsSyncAdapter \
+    GoogleTTS \
+    BugReportSender \
+    ConfigUpdater \
+    NoTouchAuthDelegate \
+    PrebuiltGmsCorePano \
+    Tubesky \
+    Backdrop \
+    AndroidMediaShell \
+    GlobalKeyInterceptor \
+    TV \
+    Overscan \
+    RemoteControlService \
+    SecondScreenSetup \
+    SecondScreenSetupAuthBridge \
+    talkbackLeanback \
+    LeanbackLauncher \
+    VideosPano \
+    Music2Pano \
+    PlayGamesLeanback \
+    Katniss \
+    AtvWidget \
+    YouTubeLeanback \
+    SetupWraith \
+    AtvRemoteService
+
+ifneq ($(filter 24,$(call get-allowed-api-levels)),)
+GAPPS_PRODUCT_PACKAGES += \
+    GoogleExtServices \
+    GoogleExtShared \
+    LandscapeWallpaper \
+    CanvasPackageInstaller \
+    LeanbackIme
+endif
+
+ifneq ($(filter 26,$(call get-allowed-api-levels)),)
+GAPPS_PRODUCT_PACKAGES += \
+    TVLauncher \
+    TVRecommendations \
+    TvTutorials \
+    AndroidPlatformServicesTV
+endif
+
+endif # end tvstock
+
+# This needs to be at the end of standard files, but before the GAPPS_FORCE_* options,
+# since those also affect DEVICE_PACKAGE_OVERLAYS. We don't want to exclude a package
+# that also has an overlay, since that will make us use the overlay but not have the
+# package. This can cause issues.
+PRODUCT_PACKAGES += $(filter-out $(GAPPS_EXCLUDED_PACKAGES),$(GAPPS_PRODUCT_PACKAGES))
