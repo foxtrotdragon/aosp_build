@@ -130,7 +130,7 @@ endif # end mini
 endif # end micro
 endif # end nano
 
-ifneq ($(filter $(TARGET_GAPPS_VARIANT),tvstock),)
+ifneq ($(filter tvstock,$(TARGET_GAPPS_VARIANT)),)
 
 GAPPS_PRODUCT_PACKAGES += \
     BugReportSender \
@@ -146,12 +146,12 @@ GAPPS_PRODUCT_PACKAGES += \
     RemoteControlService \
     SecondScreenSetup \
     SecondScreenSetupAuthBridge \
-    talkback \
+    talkbackLeanback \
     LeanbackLauncher \
     LeanbackIme \
     VideosPano \
     Music2Pano \
-    PlayGames \
+    PlayGamesLeanback \
     Katniss \
     AtvWidget \
     YouTubeLeanback \
@@ -172,11 +172,15 @@ GAPPS_PRODUCT_PACKAGES += \
     LatinIMEGoogleTvPrebuilt \
     TVLauncher \
     TVRecommendations \
-    TvTutorials
+    TvTutorials \
+    AndroidPlatformServicesTV
+
 GAPPS_EXCLUDED_PACKAGES := \
     LandscapeWallpaper \
+    LeanbackIme \
+    LeanbackLauncher \
     CanvasPackageInstaller \
-    LeanbackIme
+    AtvWidget
 endif
 
 endif # end tvstock
@@ -186,6 +190,8 @@ endif # end tvstock
 # that also has an overlay, since that will make us use the overlay but not have the
 # package. This can cause issues.
 PRODUCT_PACKAGES += $(filter-out $(GAPPS_EXCLUDED_PACKAGES),$(GAPPS_PRODUCT_PACKAGES))
+
+ifneq ($(filter pico,$(TARGET_GAPPS_VARIANT)),) # Not on tvstock
 
 ifeq ($(GAPPS_FORCE_WEBVIEW_OVERRIDES),true)
 # starting with nougat, use a different overlay
@@ -199,8 +205,6 @@ endif
 PRODUCT_PACKAGES += \
     WebViewGoogle
 endif
-
-ifneq ($(filter $(TARGET_GAPPS_VARIANT),pico),) # Not on tvstock
 
 ifeq ($(GAPPS_FORCE_BROWSER_OVERRIDES),true)
 ifneq ($(filter 23,$(call get-allowed-api-levels)),)

@@ -3,7 +3,7 @@ include $(CLEAR_VARS)
 include $(GAPPS_CLEAR_VARS)
 LOCAL_CERTIFICATE := platform
 LOCAL_MODULE := AtvRemoteService
-ifneq ($(filter $(call get-allowed-api-levels),24),)
+ifneq ($(filter 24,$(call get-allowed-api-levels)),)
 LOCAL_PACKAGE_NAME := com.google.android.tv.remote.service.leanback
 else
 LOCAL_PACKAGE_NAME := com.google.android.tv.remote
