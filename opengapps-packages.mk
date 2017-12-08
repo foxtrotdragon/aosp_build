@@ -230,7 +230,12 @@ GAPPS_PRODUCT_PACKAGES += \
     GoogleExtServices \
     GoogleExtShared \
     LandscapeWallpaper \
-    LeanbackIme
+    LatinImeGoogle \
+    GoogleHindiIME \
+    GoogleJapaneseInput \
+    KoreanIME \
+    GooglePinyinIME \
+    GoogleZhuyinIME
 endif
 
 ifneq ($(filter 26,$(call get-allowed-api-levels)),)
