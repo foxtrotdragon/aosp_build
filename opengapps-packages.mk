@@ -196,6 +196,9 @@ endif # end pico
 ifneq ($(filter tvstock,$(TARGET_GAPPS_VARIANT)),) # does not contain any other variant
 
 GAPPS_PRODUCT_PACKAGES += \
+    GooglePackageInstaller \
+    GoogleBackupTransport \
+    GoogleServicesFramework \
     WebViewGoogle \
     GoogleContactsSyncAdapter \
     GoogleTTS \
@@ -206,7 +209,6 @@ GAPPS_PRODUCT_PACKAGES += \
     Tubesky \
     Backdrop \
     AndroidMediaShell \
-    GlobalKeyInterceptor \
     TV \
     Overscan \
     RemoteControlService \
@@ -228,7 +230,6 @@ GAPPS_PRODUCT_PACKAGES += \
     GoogleExtServices \
     GoogleExtShared \
     LandscapeWallpaper \
-    CanvasPackageInstaller \
     LeanbackIme
 endif
 
@@ -239,6 +240,12 @@ GAPPS_PRODUCT_PACKAGES += \
     TvTutorials \
     AndroidPlatformServicesTV
 endif
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.error.receiver.system.apps=com.google.android.gms
+
+DEVICE_PACKAGE_OVERLAYS += \
+    $(GAPPS_DEVICE_FILES_PATH)/overlay/webview/24
 
 endif # end tvstock
 
