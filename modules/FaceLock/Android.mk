@@ -9,6 +9,7 @@ endif
 LOCAL_PATH := .
 include $(CLEAR_VARS)
 include $(GAPPS_CLEAR_VARS)
+LOCAL_CERTIFICATE := PRESIGNED
 LOCAL_MODULE := FaceLock
 LOCAL_PACKAGE_NAME := com.android.facelock
 LOCAL_SHARED_LIBRARIES := libfilterpack_facedetect $(FACELOCK_JNI_NAME) libfrsdk

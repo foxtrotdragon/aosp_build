@@ -30,6 +30,7 @@ define get-gapps-variant
 $(strip \
 $(if $(filter pico, $(1)),pico) \
 $(if $(filter nano, $(1)),pico nano) \
+$(if $(filter tvstock,$(1)),tvstock) \
 $(if $(filter micro,$(1)),pico nano micro) \
 $(if $(filter mini, $(1)),pico nano micro mini) \
 $(if $(filter full, $(1)),pico nano micro mini full) \
