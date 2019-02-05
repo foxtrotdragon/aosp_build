@@ -5,5 +5,5 @@ LOCAL_MODULE := AndroidMigratePrebuilt
 # aka Data Transfer Tool
 LOCAL_PACKAGE_NAME := com.google.android.apps.pixelmigrate
 LOCAL_PRIVILEGED_MODULE := true
-
+LOCAL_CERTIFICATE := PRESIGNED
 include $(BUILD_GAPPS_PREBUILT_APK)

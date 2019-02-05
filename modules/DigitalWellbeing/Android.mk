@@ -4,5 +4,5 @@ include $(GAPPS_CLEAR_VARS)
 LOCAL_MODULE := DigitalWellbeing
 LOCAL_PACKAGE_NAME := com.google.android.apps.wellbeing
 LOCAL_PRIVILEGED_MODULE := true
-
+LOCAL_CERTIFICATE := PRESIGNED
 include $(BUILD_GAPPS_PREBUILT_APK)
