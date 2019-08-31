@@ -1,9 +1,8 @@
 LOCAL_PATH := .
 include $(CLEAR_VARS)
 include $(GAPPS_CLEAR_VARS)
-LOCAL_CERTIFICATE := PRESIGNED
-LOCAL_MODULE := Turbo
-LOCAL_PACKAGE_NAME := com.google.android.apps.turbo
+LOCAL_MODULE := DigitalWellbeing
+LOCAL_PACKAGE_NAME := com.google.android.apps.wellbeing
 LOCAL_PRIVILEGED_MODULE := true
-
+LOCAL_CERTIFICATE := PRESIGNED
 include $(BUILD_GAPPS_PREBUILT_APK)

@@ -7,7 +7,7 @@
 ## Getting started
 **1. Add the build system, and the wanted sources to your manifest.**
 
-Find your manifest file (check inside `${ANDROID_BUILD_TOP}/.repo/manifest/`)
+Find your manifest file (check inside `${ANDROID_BUILD_TOP}/.repo/manifests/`)
 and add the following towards the end:
 ```xml
 <remote name="opengapps" fetch="https://github.com/opengapps/"  />
@@ -54,7 +54,7 @@ You can add packages from versions higher then your set version. E.g. if you wan
 In your `device/manufacturer/product/device.mk` just add, for example:
 
 ```makefile
-PRODUCT_PACKAGES += Chrome
+GAPPS_PRODUCT_PACKAGES += Chrome
 ```
 
 This uses the module name. You can find the module name for a package by checking `vendor/opengapps/build/modules/` and look at the `LOCAL_MODULE` value.
@@ -101,7 +101,10 @@ If you want to include Chrome on a non-full build you need:
 GAPPS_FORCE_BROWSER_OVERRIDES := true
 ```
 
-If you want use PixelLauncher overriding GoogleHome you need:
+PixelLauncher is the default launcher in Oreo builds (and newer); in
+builds older than Oreo, the default launcher is GoogleNow.  If
+desired, then you can force PixelLauncher to be used by setting the
+following variable:
 
 ```makefile
 GAPPS_FORCE_PIXEL_LAUNCHER := true
